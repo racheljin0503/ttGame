@@ -35,7 +35,20 @@ class Rocket{
         //     }
         // });
     }
+    /*
+    walls() {
+        if (rocket.x > width){
+            rocket.x = 0 - rocket.width;
+        } else if (rocket.x < 0 - rocket.width) {
+            rocket.x = width;
+        }
+    }
+    */
+    walls(){
+        if (this.rocket.x < 0){
+            rocket.x = 150 - math.abs(rocket.x)
 
+<<<<<<< HEAD
     walls(){
         if (this.rocket.x < 0){
             rocket.x = 150 - math.abs(rocket.x)
@@ -43,6 +56,12 @@ class Rocket{
         }
     }
 
+=======
+        }
+    }
+
+    
+>>>>>>> origin/master
     direction() {
         this.rocket.body.velocity.x = 0;
 
@@ -53,6 +72,22 @@ class Rocket{
         }
         console.log("direction");
     }
+//?
+//     fire(shooting){
+//         for(let i = 0; i < this.bullets.length; i++) {
+//             this.bullets[i].fly();
+//
+//             if(this.bullets[i].bulletOut() === true){
+//                 // this.bullets[i].terminate()
+//                 this.bullets[i].bullets.destroy(true);
+//                 this.bullets.splice(i, 1);
+//             }
+//         }
+//        
+//         if (shooting){
+//             this.bullets.push(new Bullet(this.scene, this.rocket.x));
+//         }
+//     }
 
     update() {
         console.log("update");

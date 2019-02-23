@@ -7,6 +7,7 @@ let gameOptions = {
     cargoPercent: 1,
     alienPercent: 5,
     hatchPanelsPercent: 1,
+<<<<<<< HEAD
     asteroidPercent: 2
 };
  
@@ -14,7 +15,15 @@ function scaler() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.setMinMax(400, 300, 800, 600);
 }
+=======
+    asteroidPercent: 1
+};
+>>>>>>> origin/master
 
+function scaler() {
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.setMinMax(400, 300, 800, 600);
+}
 function preload() {
     this.load.image('space', './imgs/spacegif.jpg');
     this.load.image('rocket', './imgs/rocket.png');
@@ -27,11 +36,14 @@ function preload() {
     this.load.image('hatchIcon', './imgs/hatchIcon.png');
 }
 
+
 let space;
 let primus;
 let rocket;
 let controls;
 let collectAsset;
+let scoreText;
+
 let scoreText;
 
 function create() {
@@ -66,6 +78,7 @@ function create() {
     // });
     text.setScrollFactor(0);
 
+<<<<<<< HEAD
     scoreText = this.add.text(25, 20, `Score:0`, {
         fontSize: '20px',
         fill: '#ffffff'
@@ -94,6 +107,32 @@ function update() {
     // console.log(controls.getMotion())
     rocket.move(controls.getMotion());
     rocket.checkCollision(collectAsset.getAssetCoordinates())
+=======
+    scoreText = this.add.text(25, 20, 'Score: 0', {
+        fontSize: '20px',
+        fill: '#ffffff'
+    });
+
+
+
+}
+let score = 0;
+let updateRate = 10;
+let currentUpdate = 0;
+
+// // alien
+//     alien = this.physics.add.gif({
+//         key: 'alien',
+//         repeat: Phaser.Math.Between(1,10),
+//         setXY: { x: Phaser.Math.Between(1,10), y: 0, stepY:10000}
+//     });
+// black hole portal (maybe not)
+
+function update() {
+    currentUpdate += 1;
+    // console.log(controls.getMotio n())
+    rocket.move(controls.getMotion());
+>>>>>>> origin/master
     // rocket.fire(controls.getShooting());
 
     collectAsset.assetCreate();
@@ -101,6 +140,25 @@ function update() {
     space.tilePositionY -= 5;
     primus.tilePositionY -= 2;
 
+<<<<<<< HEAD
+=======
+    text.setScrollFactor(0);
+    if(currentUpdate === updateRate) {
+        scoreText.destroy();
+        scoreText = this.add.text(25, 20, 'Score: ' + score, {
+            fontSize: '20px',
+            fill: '#ffffff'
+        });
+        // scoreText.setText('Score: ' + score);
+
+
+        score++;
+        currentUpdate = 0;
+    }
+    // if (rocket == blackhole && boost = True) {
+    //     this.load.image('space', "")
+    // }
+>>>>>>> origin/master
     if (primus.tilePositionY <= -370) {
         primus.destroy();
     }
@@ -121,3 +179,4 @@ function resize() {
     // }
     canvas.style.height = windowHeight + "px";
 }
+
