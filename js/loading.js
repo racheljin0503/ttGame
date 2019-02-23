@@ -1,7 +1,3 @@
-// class Loading{
-//     constructor(scene){
-//         this.scene = scene;
-// }
 function loading() {
     var progressBar = this.scene.add.graphics();
     var progressBox = this.scene.add.graphics();
@@ -71,7 +67,7 @@ function loading() {
 function loadScreen() {
     logo = this.scene.add.image(400, 300, 'logo');
     if(logo.posX == 400) {
-        this.scene.start(Game);
+        this.scene.start('Menu');
         }
     }
 // }
