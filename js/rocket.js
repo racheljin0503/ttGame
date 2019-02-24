@@ -44,11 +44,7 @@ class Rocket{
         }
     }
     */
-    walls(){
-        if (this.rocket.x < 0){
-            rocket.x = 150 - math.abs(rocket.x)
 
-<<<<<<< HEAD
     walls(){
         if (this.rocket.x < 0){
             rocket.x = 150 - math.abs(rocket.x)
@@ -56,12 +52,6 @@ class Rocket{
         }
     }
 
-=======
-        }
-    }
-
-    
->>>>>>> origin/master
     direction() {
         this.rocket.body.velocity.x = 0;
 

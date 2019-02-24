@@ -7,176 +7,125 @@ let gameOptions = {
     cargoPercent: 1,
     alienPercent: 5,
     hatchPanelsPercent: 1,
-<<<<<<< HEAD
     asteroidPercent: 2
-};
- 
-function scaler() {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.setMinMax(400, 300, 800, 600);
-}
-=======
-    asteroidPercent: 1
-};
->>>>>>> origin/master
+    };
 
-function scaler() {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.setMinMax(400, 300, 800, 600);
-}
-function preload() {
-    this.load.image('space', './imgs/spacegif.jpg');
-    this.load.image('rocket', './imgs/rocket.png');
-    this.load.image('alien', './imgs/alien.gif');
-    this.load.image('asteroid', './imgs/asteroid.png');
-    this.load.image('cargo', './imgs/cargo.png');
-    this.load.image('hatchPanels', './imgs/hatchPanel.png');
-    this.load.image('bullets', './imgs/laserBlasts.jpg');
-    this.load.image('primus', './imgs/primus.png');
-    this.load.image('hatchIcon', './imgs/hatchIcon.png');
-}
-
-
-let space;
-let primus;
-let rocket;
-let controls;
-let collectAsset;
-let scoreText;
-
-let scoreText;
-
-function create() {
-    space = this.add.tileSprite(320, 480, 640, 960, 'space');
-    primus = this.add.tileSprite(320, 980, 640, 150, 'primus');
-    rocket = new Rocket(this);
-    controls = new Controls(this);
-
-    // this.anims.create({
-    //     key: "rotate",
-    //     frames: this.anims.generateFrameNumbers("hatchPanels", {
-    //         start: 0,
-    //         end: 5
-    //     }),
-    //     frameRate: 10,
-    //     yoyo: true,
-    //     repeat: -1
-    // });
-
-    collectAsset = new collectAssets(this);
-    //boost
-    // if spacebar = full 
-
-    // top header tracker
-    // pause = new Pause(this);
-    // hatchIcon = this.physics.add.staticGroup();
-    // hatchIcon.create(548, 29, 'hatchIcon');
-    // let hatchPanelsCollected = 0;
-    // text = this.add.text(560, 20, hatchPanelsCollected, {
-    //     fontSize: '20px',
-    //     fill: '#ffffff'
-    // });
-    text.setScrollFactor(0);
-
-<<<<<<< HEAD
-    scoreText = this.add.text(25, 20, `Score:0`, {
-        fontSize: '20px',
-        fill: '#ffffff'
-    });
-}
+    let space;
+    let primus;        
+    let rocket;
+    let controls;
+    let collectAsset;
+    let scoreText;
 
     let score = 0;
     let updateRate = 10;
     let currentUpdate = 0;
 
-function update() {
-    if(currentUpdate === updateRate) {
-        scoreText.destroy();
-        scoreText = this.add.text(25, 20, 'Score: ' + score, {
+class Game extends Phaser.Scene {
+    constructor() {
+        super({ key: 'Game', active: false });
+    }
+
+    scaler() {
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.setMinMax(400, 300, 800, 600);
+    }
+
+    preload() {
+        this.load.image('space', './imgs/spacegif.jpg');
+        this.load.image('rocket', './imgs/rocket.png');
+        this.load.image('alien', './imgs/alien.gif');
+        this.load.image('asteroid', './imgs/asteroid.png');
+        this.load.image('cargo', './imgs/cargo.png');
+        this.load.image('hatchPanels', './imgs/hatchPanel.png');
+        this.load.image('bullets', './imgs/laserBlasts.jpg');
+        this.load.image('primus', './imgs/primus.png');
+        this.load.image('hatchIcon', './imgs/hatchIcon.png');
+    }
+
+    create() {
+        space = this.add.tileSprite(320, 480, 640, 960, 'space');
+        primus = this.add.tileSprite(320, 980, 640, 150, 'primus');
+        rocket = new Rocket(this);
+        controls = new Controls(this);
+
+        // this.anims.create({
+        //     key: "rotate",
+        //     frames: this.anims.generateFrameNumbers("hatchPanels", {
+        //         start: 0,
+        //         end: 5
+        //     }),
+        //     frameRate: 10,
+        //     yoyo: true,
+        //     repeat: -1
+        // });
+
+        collectAsset = new collectAssets(this);
+        //boost
+        // if spacebar = full 
+
+        // top header tracker
+        // pause = new Pause(this);
+        // hatchIcon = this.physics.add.staticGroup();
+        // hatchIcon.create(548, 29, 'hatchIcon');
+        // let hatchPanelsCollected = 0;
+        // text = this.add.text(560, 20, hatchPanelsCollected, {
+        //     fontSize: '20px',
+        //     fill: '#ffffff'
+        // });
+
+        scoreText = this.add.text(25, 20, `Score:0`, {
             fontSize: '20px',
             fill: '#ffffff'
         });
-        // scoreText.setText('Score: ' + score);
-
-        text.setScrollFactor(0);
-        score++;
-        currentUpdate = 0;
+        scoreText.setScrollFactor(0);
     }
 
+    update() {
+        if(currentUpdate === updateRate) {
+            scoreText.destroy();
+            scoreText = this.add.text(25, 20, 'Score: ' + score, {
+                fontSize: '20px',
+                fill: '#ffffff'
+            });
+            // scoreText.setText('Score: ' + score);
 
-    // console.log(controls.getMotion())
-    rocket.move(controls.getMotion());
-    rocket.checkCollision(collectAsset.getAssetCoordinates())
-=======
-    scoreText = this.add.text(25, 20, 'Score: 0', {
-        fontSize: '20px',
-        fill: '#ffffff'
-    });
-
-
-
-}
-let score = 0;
-let updateRate = 10;
-let currentUpdate = 0;
-
-// // alien
-//     alien = this.physics.add.gif({
-//         key: 'alien',
-//         repeat: Phaser.Math.Between(1,10),
-//         setXY: { x: Phaser.Math.Between(1,10), y: 0, stepY:10000}
-//     });
-// black hole portal (maybe not)
-
-function update() {
-    currentUpdate += 1;
-    // console.log(controls.getMotio n())
-    rocket.move(controls.getMotion());
->>>>>>> origin/master
-    // rocket.fire(controls.getShooting());
-
-    collectAsset.assetCreate();
-
-    space.tilePositionY -= 5;
-    primus.tilePositionY -= 2;
-
-<<<<<<< HEAD
-=======
-    text.setScrollFactor(0);
-    if(currentUpdate === updateRate) {
-        scoreText.destroy();
-        scoreText = this.add.text(25, 20, 'Score: ' + score, {
-            fontSize: '20px',
-            fill: '#ffffff'
-        });
-        // scoreText.setText('Score: ' + score);
+            text.setScrollFactor(0);
+            score++;
+            currentUpdate = 0;
+        }
 
 
-        score++;
-        currentUpdate = 0;
+        // console.log(controls.getMotion())
+        rocket.move(controls.getMotion());
+        rocket.checkCollision(collectAsset.getAssetCoordinates())
+        // rocket.fire(controls.getShooting());
+
+        collectAsset.assetCreate();
+
+        space.tilePositionY -= 5;
+        primus.tilePositionY -= 2;
+
+        if (primus.tilePositionY <= -370) {
+            primus.destroy();
+        }
     }
-    // if (rocket == blackhole && boost = True) {
-    //     this.load.image('space', "")
-    // }
->>>>>>> origin/master
-    if (primus.tilePositionY <= -370) {
-        primus.destroy();
-    }
-}
 
-function resize() {
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
-    let windowRatio = windowWidth / windowHeight;
-    let gameRatio = game.config.width / game.config.height;
-    // if(windowRatio < gameRatio){
-    //     canvas.style.width = windowWidth + "px";
-    //     canvas.style.height = (windowWidth / gameRatio) + "px";
-    // }
-    // else{
-    //     canvas.style.width = (windowHeight * gameRatio) + "px";
-    //     canvas.style.height = windowHeight + "px";
-    // }
-    canvas.style.height = windowHeight + "px";
-}
+    resize() {
+        let canvas = document.querySelector("canvas");
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+        let windowRatio = windowWidth / windowHeight;
+        let gameRatio = game.config.width / game.config.height;
+        if(windowRatio < gameRatio){
+            canvas.style.width = windowWidth + "px";
+            canvas.style.height = (windowWidth / gameRatio) + "px";
+        }
+        else{
+            canvas.style.width = (windowHeight * gameRatio) + "px";
+            canvas.style.height = windowHeight + "px";
+        }
+        // canvas.style.height = windowHeight + "px";
+    }
+    }
 
