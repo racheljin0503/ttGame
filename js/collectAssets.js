@@ -17,7 +17,7 @@ class collectAssets {
 
     randAssets() {
         if (Phaser.Math.Between(1, 150) <= gameOptions.cargoPercent && this.timeOverall === 0) {
-            let cargo = this.scene.physics.add.sprite(Phaser.Math.Between(1, 640), -50, 'cargo');
+            let cargo = this.scene.physics.add.sprite(Phaser.Math.Between(1, game.config.width), -50, 'cargo');
             cargo.setVelocityY(- ((space.tilePositionY / 150) - 300));
             this.cargoGroup.push(cargo);
 
@@ -25,7 +25,7 @@ class collectAssets {
         }
 
         if (Phaser.Math.Between(1, 75) <= gameOptions.asteroidPercent && this.timeOverall === 0) {
-            let asteroid = this.scene.physics.add.sprite(Phaser.Math.Between(1, 640), -50, 'asteroid');
+            let asteroid = this.scene.physics.add.sprite(Phaser.Math.Between(1, game.config.width), -50, 'asteroid');
             asteroid.setVelocityY(- ((space.tilePositionY / 150) - 300));
             this.asteroidGroup.push(asteroid);
 
@@ -35,7 +35,7 @@ class collectAssets {
 
     destroyAssets(asset){
         for(let i = 0; i < asset.length; i++){
-            if(asset[i].y > window.innerHeight){
+            if(asset[i].y -50 > game.config.height){
                 asset[i].destroy(true);
                 asset.splice(i, 1);
             }

@@ -21,14 +21,20 @@ let gameOptions = {
     let updateRate = 10;
     let currentUpdate = 0;
 
-class Game extends Phaser.Scene {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady(){
+        console.log(navigator.accelerometer);
+    }
+
+class Game_ extends Phaser.Scene {
     constructor() {
-        super({ key: 'Game', active: false });
+        super({ key: 'Game_', active: false });
     }
 
     scaler() {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setMinMax(400, 300, 800, 600);
+        scaleRatio = window.devicePixelRatio / 3;
     }
 
     preload() {
@@ -41,14 +47,20 @@ class Game extends Phaser.Scene {
         this.load.image('bullets', './imgs/laserBlasts.jpg');
         this.load.image('primus', './imgs/primus.png');
         this.load.image('hatchIcon', './imgs/hatchIcon.png');
+        this.load.image('Menu', 'TitanMenu.png');
+        // this.load.audio('theme', ['./imgs/assets/audio/Deep_Space_Destructors_-_04_-_From_The_Ashes.mp3']);
     }
 
     create() {
-        space = this.add.tileSprite(320, 480, 640, 960, 'space');
-        primus = this.add.tileSprite(320, 980, 640, 150, 'primus');
+        // var music= this.sound.add('theme');
+        // music.play();
+
+        space = this.add.tileSprite((game.config.width/2), (game.config.height/2), game.config.width, game.config.height, 'space');
+        primus = this.add.tileSprite((game.config.width/2), game.config.height, game.config.width, game.config.height, 'primus');
         rocket = new Rocket(this);
         controls = new Controls(this);
-
+        window.addEventListener('resize', resize);
+        resize();
         // this.anims.create({
         //     key: "rotate",
         //     frames: this.anims.generateFrameNumbers("hatchPanels", {
@@ -67,30 +79,29 @@ class Game extends Phaser.Scene {
         // top header tracker
         // pause = new Pause(this);
         // hatchIcon = this.physics.add.staticGroup();
-        // hatchIcon.create(548, 29, 'hatchIcon');
+        // hatchIcon.create((535/640)*window.innerWidth, (29/960)*window.innerHeight, 'hatchIcon');
         // let hatchPanelsCollected = 0;
         // text = this.add.text(560, 20, hatchPanelsCollected, {
         //     fontSize: '20px',
         //     fill: '#ffffff'
         // });
 
-        scoreText = this.add.text(25, 20, `Score:0`, {
-            fontSize: '20px',
+        scoreText = this.add.text(game.config.width*0.01, game.config.height*0.01, `Score:0`, {
+            fontSize: '35px',
             fill: '#ffffff'
         });
         scoreText.setScrollFactor(0);
     }
 
     update() {
+        currentUpdate +=1;
+
         if(currentUpdate === updateRate) {
             scoreText.destroy();
             scoreText = this.add.text(25, 20, 'Score: ' + score, {
                 fontSize: '20px',
                 fill: '#ffffff'
             });
-            // scoreText.setText('Score: ' + score);
-
-            text.setScrollFactor(0);
             score++;
             currentUpdate = 0;
         }
@@ -110,22 +121,17 @@ class Game extends Phaser.Scene {
             primus.destroy();
         }
     }
-
-    resize() {
-        let canvas = document.querySelector("canvas");
-        let windowWidth = window.innerWidth;
-        let windowHeight = window.innerHeight;
-        let windowRatio = windowWidth / windowHeight;
-        let gameRatio = game.config.width / game.config.height;
-        if(windowRatio < gameRatio){
-            canvas.style.width = windowWidth + "px";
-            canvas.style.height = (windowWidth / gameRatio) + "px";
+}
+    function resize() {
+        var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
+        var wratio = width / height, ratio = canvas.width / canvas.height;
+    
+        if (wratio < ratio) {
+            canvas.style.width = width + "px";
+            canvas.style.height = (width / ratio) + "px";
+        } else {
+            canvas.style.width = (height * ratio) + "px";
+            canvas.style.height = height + "px";
         }
-        else{
-            canvas.style.width = (windowHeight * gameRatio) + "px";
-            canvas.style.height = windowHeight + "px";
-        }
-        // canvas.style.height = windowHeight + "px";
-    }
     }
 

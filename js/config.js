@@ -1,24 +1,26 @@
 let config;
 
-let scene = [];
-scene.push(Menu);
-// scene.push("Game");
+let sceneMan = [];
+// scene.push(Loading);
+sceneMan.push(Menu);
+sceneMan.push(Game_);
 
 window.onload = function() {
     config = {
-        type: Phaser.AUTO,
-        width: 640,
-        height: 960,
-        scene: scene,
+        type: Phaser.CANVAS,
+        width: window.innerWidth * window.devicePixelRatio,
+        height: window.innerHeight * window.devicePixelRatio,
+        scene: sceneMan,
         physics: {
             default: "arcade",
+        },
+        audio: {
+            disableWebAudio: true
         }
     }
-
-
-game = new Phaser.Game(config);
-    // window.focus();
-    // resize();
+    game = new Phaser.Game(config);
+    window.focus();
+    resize();
     // window.addEventListener("resize", resize, false);
 }
 

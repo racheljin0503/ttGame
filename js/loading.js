@@ -3,76 +3,81 @@ class Loading extends Phaser.Scene {
         super({ key: 'Loading', active: true });
     }
 
-    loading() {
-        var progressBar = this.scene.add.graphics();
-        var progressBox = this.scene.add.graphics();
-        progressBox.fillStyle(0x222222, 0.8);
-        progressBox.fillRect(240, 270, 320, 50);
+    preload() {
+        window.addEventListener('resize', resize);
+        resize();
 
-        var width = this.Config.main.width;
-        var height = this.Config.main.height;
-        var loadingText = this.scene.make.text({
-            x: width / 2,
-            y: height / 2 - 50,
-            text: 'Loading...',
-            style: {
-            font: '20px monospace',
-            fill: '#ffffff'
-            }
-        });
-        loadingText.setOrigin(0.5, 0.5);
+        var width = game.config.width;
+        var height = game.config.height;
+
+        var progressBar = this.add.graphics();
+        var progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(width*0.3, height*0.45, 600, 140);
         
-        var percentText = this.scene.make.text({
-            x: width / 2,
-            y: height / 2 - 5,
+        var percentText = this.make.text({
+            x: width * 0.5,
+            y: height *0.49,
             text: '0%',
             style: {
-                font: '18px monospace',
+                font: '50px monospace',
                 fill: '#ffffff'
             }
         });
         percentText.setOrigin(0.5, 0.5);
 
         var assetText = this.make.text({
-            x: width / 2,
-            y: height / 2 + 50,
-            text: 'Hello',
+            x: width *0.51,
+            y: height * 0.53,
+            text: '',
             style: {
-                font: '18px monospace',
+                font: '35px monospace',
                 fill: '#72FFFF'
             }
         });
         assetText.setOrigin(0.5, 0.5);
         
-        this.scene.load.on('progress', function (value) {
+        this.load.on('progress', function (value) {
             percentText.setText(parseInt(value * 100) + '%');
             progressBar.clear();
-            progressBar.fillStyle('#00FFFF');
-            progressBar.fillRect(250, 280, 300 * value, 30);
+            progressBar.fillStyle('#ffffff');
+            progressBar.fillRect(width*0.36, height*0.47, 490* value, 100);
         });
                     
-        this.scene.load.on('fileprogress', function (file) {
+        this.load.on('fileprogress', function (file) {
             assetText.setText('Loading asset: ' + file.key);
         });
         
-        this.scene.load.on('complete', function () {
+        this.load.on('complete', function () {
             progressBar.destroy();
             progressBox.destroy();
-            loadingText.destroy();
             percentText.destroy();
             assetText.destroy();
         });
-
-        this.scene.load.image('logo', '../imgs/technoTitanLogo.png');
-            for (var i = 0; i < 5000; i++) {
-                this.scene.load.image('logo'+i, '../imgs/technoTitanLogo.png');
-            }
+        
+    this.load.image('titanLogo', './imgs/technoTitanLogo.png');
+        for (var i = 0; i < 5000; i++) {
+            this.load.image('assets'+i, '../imgs/technoTitanLogo.png');
         }
+    }
 
     loadScreen() {
-        logo = this.scene.add.image(400, 300, 'logo');
-        if(logo.posX == 400) {
-            this.scene.start('menu');
+        logo = this.add.image(width/2, height/2, 'logo');
+        if(percentText === 100) {
+            this.scene.start('Menu');
             }
         }
-}
+    }
+
+    function resize() {
+        var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
+        var wratio = width / height, ratio = canvas.width / canvas.height;
+    
+        if (wratio < ratio) {
+            canvas.style.width = width + "px";
+            canvas.style.height = (width / ratio) + "px";
+        } else {
+            canvas.style.width = (height * ratio) + "px";
+            canvas.style.height = height + "px";
+        }
+    }
