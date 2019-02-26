@@ -1,16 +1,16 @@
 let config;
 
-let sceneMan = [];
-// scene.push(Loading);
-sceneMan.push(Menu);
-sceneMan.push(Game_);
+let scene = [];
+scene.push(Menu);
+scene.push(Game_);
+scene.push(Pause);
 
 window.onload = function() {
     config = {
         type: Phaser.CANVAS,
         width: window.innerWidth * window.devicePixelRatio,
         height: window.innerHeight * window.devicePixelRatio,
-        scene: sceneMan,
+        scene: scene,
         physics: {
             default: "arcade",
         },
@@ -19,8 +19,8 @@ window.onload = function() {
         }
     }
     game = new Phaser.Game(config);
-    window.focus();
-    resize();
+    // window.focus();
+    // resize();
     // window.addEventListener("resize", resize, false);
 }
 

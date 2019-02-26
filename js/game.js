@@ -8,23 +8,24 @@ let gameOptions = {
     alienPercent: 5,
     hatchPanelsPercent: 1,
     asteroidPercent: 2
-    };
+};
 
-    let space;
-    let primus;        
-    let rocket;
-    let controls;
-    let collectAsset;
-    let scoreText;
+let space;
+let primus;        
+let rocket;
+let controls;
+let collectAsset;
+let scoreText;
+let pause;
 
-    let score = 0;
-    let updateRate = 10;
-    let currentUpdate = 0;
+let score = 0;
+let updateRate = 10;
+let currentUpdate = 0;
 
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady(){
-        console.log(navigator.accelerometer);
-    }
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady(){
+    console.log(navigator.accelerometer);
+}
 
 class Game_ extends Phaser.Scene {
     constructor() {
@@ -55,42 +56,47 @@ class Game_ extends Phaser.Scene {
         // var music= this.sound.add('theme');
         // music.play();
 
-        space = this.add.tileSprite((game.config.width/2), (game.config.height/2), game.config.width, game.config.height, 'space');
-        primus = this.add.tileSprite((game.config.width/2), game.config.height, game.config.width, game.config.height, 'primus');
+        space = this.add.tileSprite((window.innerWidth/2), (window.innerHeight/2), window.innerWidth, window.innerHeight, 'space');
+        // primus = this.add.tileSprite((window.innerWidth/2), window.innerHeight, window.innerWidth, window.innerHeight, 'primus');
+        primus = this.add.sprite((window.innerWidth/2), (window.innerHeight*0.7), 'primus');
+
+        primus.displayWidth = window.innerWidth;
+        primus.displayHeight = window.innerHeight * 0.6;
+        
         rocket = new Rocket(this);
         controls = new Controls(this);
-        window.addEventListener('resize', resize);
-        resize();
-        // this.anims.create({
-        //     key: "rotate",
-        //     frames: this.anims.generateFrameNumbers("hatchPanels", {
-        //         start: 0,
-        //         end: 5
-        //     }),
-        //     frameRate: 10,
-        //     yoyo: true,
-        //     repeat: -1
-        // });
+        // window.addEventListener('resize', resize);
+        // resize();
 
         collectAsset = new collectAssets(this);
-        //boost
-        // if spacebar = full 
-
-        // top header tracker
-        // pause = new Pause(this);
-        // hatchIcon = this.physics.add.staticGroup();
-        // hatchIcon.create((535/640)*window.innerWidth, (29/960)*window.innerHeight, 'hatchIcon');
-        // let hatchPanelsCollected = 0;
-        // text = this.add.text(560, 20, hatchPanelsCollected, {
-        //     fontSize: '20px',
-        //     fill: '#ffffff'
-        // });
-
-        scoreText = this.add.text(game.config.width*0.01, game.config.height*0.01, `Score:0`, {
+       
+        scoreText = this.add.text(window.innerWidth*0.01, window.innerHeight*0.01, `Score:0`, {
             fontSize: '35px',
             fill: '#ffffff'
         });
         scoreText.setScrollFactor(0);
+
+        this.pauseButton = this.add.rectangle(window.innerWidth * 0.93, window.innerHeight *0.01, window.innerWidth*0.1, window.innerHeight*0.1);
+        this.pauseButton.setInteractive();
+        
+        pause = this.add.text(window.innerWidth*0.93, window.innerHeight*0.01, `||`, {
+            fontSize: '35px',
+            fill: '#ffffff'
+        });
+        scoreText.setScrollFactor(0);
+    
+        this.pauseButton.on('pointerup', function() {
+            this.scene.launch('Pause');
+            this.scene.pause();
+        }, this);
+
+        this.events.on('pause', function () {
+            console.log('Scene A paused');
+        })
+        this.events.on('resume', function () {
+            console.log('Scene A resumed');
+        })
+
     }
 
     update() {
@@ -109,29 +115,63 @@ class Game_ extends Phaser.Scene {
 
         // console.log(controls.getMotion())
         rocket.move(controls.getMotion());
-        rocket.checkCollision(collectAsset.getAssetCoordinates())
+        rocket.checkCollision(collectAsset.getAssetCoordinates());
         // rocket.fire(controls.getShooting());
+
+        // if(rocket.getDeath() == true){
+        //     console.log("yayyayay");
+        //     this.scene.launch('gameOver');
+        //     this.scene.remove();
+        //     rocket.kill();
+        // }
 
         collectAsset.assetCreate();
 
         space.tilePositionY -= 5;
-        primus.tilePositionY -= 2;
+        primus.y += 5;
 
-        if (primus.tilePositionY <= -370) {
+        if (primus.y >= window.innerHeight*2) {
             primus.destroy();
         }
     }
 }
-    function resize() {
-        var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
-        var wratio = width / height, ratio = canvas.width / canvas.height;
-    
-        if (wratio < ratio) {
-            canvas.style.width = width + "px";
-            canvas.style.height = (width / ratio) + "px";
-        } else {
-            canvas.style.width = (height * ratio) + "px";
-            canvas.style.height = height + "px";
-        }
-    }
 
+function resize() {
+    var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
+    var wratio = width / height, ratio = canvas.width / canvas.height;
+
+    if (wratio < ratio) {
+        canvas.style.width = width + "px";
+        canvas.style.height = (width / ratio) + "px";
+    } else {
+        canvas.style.width = (height * ratio) + "px";
+        canvas.style.height = height + "px";
+    }
+}
+
+
+// ==================== In Create ====================
+
+// this.anims.create({
+//     key: "rotate",
+//     frames: this.anims.generateFrameNumbers("hatchPanels", {
+//         start: 0,
+//         end: 5
+//     }),
+//     frameRate: 10,
+//     yoyo: true,
+//     repeat: -1
+// });
+
+//boost
+// if spacebar = full 
+
+// top header tracker
+// pause = new Pause(this);
+// hatchIcon = this.physics.add.staticGroup();
+// hatchIcon.create((535/640)*window.innerWidth, (29/960)*window.innerHeight, 'hatchIcon');
+// let hatchPanelsCollected = 0;
+// text = this.add.text(560, 20, hatchPanelsCollected, {
+//     fontSize: '20px',
+//     fill: '#ffffff'
+// });

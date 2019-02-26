@@ -61,8 +61,8 @@ window.onload = function() {
     }
     game = new Phaser.Game(gameConfig);
     window.focus();
-    resize();
-    window.addEventListener("resize", resize, false);
+    // resize();
+    // window.addEventListener("resize", resize, false);
 }
  
 // preloadGame scene
@@ -441,6 +441,7 @@ class playGame extends Phaser.Scene{
         }
     }
 };
+
 function resize(){
     let canvas = document.querySelector("canvas");
     let windowWidth = window.innerWidth;

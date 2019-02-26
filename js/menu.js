@@ -10,18 +10,19 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('titanMenu', './imgs/titanMenu.png');
+        this.load.image('titanMenu', './imgs/TitanMenu.png');
     }
 
     create() {
-        window.addEventListener('resize', resize);
-        resize();
-        this.titanMenu = this.add.image((window.innerWidth/2), (window.innerHeight/2), 'titanMenu');
-            
+        // window.addEventListener('resize', resize);
+        // resize();
+        this.titanMenu = this.add.image(window.innerWidth/2, window.innerHeight/2, 'titanMenu');
+            this.titanMenu.displayWidth = window.innerWidth;
+            this.titanMenu.displayHeight = window.innerHeight;
 
             // For location
         // this.button = this.add.rectangle((320/640)*window.innerWidth, (480/960)*window.innerHeight, window.innerWidth*0.8, window.innerHeight*0.5);
-        this.button = this.add.rectangle((100/640)*window.innerWidth, (window.innerHeight/2), window.innerWidth*0.99, 200);
+        this.button = this.add.rectangle(window.innerWidth*0.55, window.innerHeight*0.55, window.innerWidth*0.65, window.innerHeight*0.1, "#000000");
         this.button.setInteractive();
     
         this.button.on('pointerdown', function() {
@@ -33,7 +34,8 @@ class Menu extends Phaser.Scene {
             // this.scene.add('Game_');
             // this.scene.add(key, stuff, true);
             // scene.scene.remove(MainMenu);
-            // game = new Phaser.Game(config);
+            // game = new Phaser.Game(config);()
+            this.button.destroy();
         }, this);
     }
 }

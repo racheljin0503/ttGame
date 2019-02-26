@@ -4,8 +4,8 @@ class Loading extends Phaser.Scene {
     }
 
     preload() {
-        window.addEventListener('resize', resize);
-        resize();
+        // window.addEventListener('resize', resize);
+        // resize();
 
         var width = game.config.width;
         var height = game.config.height;
@@ -64,7 +64,7 @@ class Loading extends Phaser.Scene {
     loadScreen() {
         logo = this.add.image(width/2, height/2, 'logo');
         if(percentText === 100) {
-            this.scene.start('Menu');
+            this.scene.launch('Menu');
             }
         }
     }

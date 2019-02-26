@@ -1,7 +1,9 @@
 class Rocket{
     constructor(scene) {
         this.scene = scene;
-        this.rocket = this.scene.physics.add.sprite(gameOptions.rocketStartPosition, game.config.height * 0.87, 'rocket');   
+        this.rocket = this.scene.physics.add.sprite(window.innerWidth * 0.5, window.innerHeight * 0.87, 'rocket');   
+        
+        this.dead = false;
         //spritesheeet
         // this.player.scaleX = 40;
         // this.player.scaleY = 40;
@@ -18,7 +20,7 @@ class Rocket{
         if(this.rocket.x -50 <= 0) {
             mvmt.left = false;
         }
-        else if(this.rocket.x + 50 >= game.config.width) {
+        else if(this.rocket.x + 50 >= window.innerWidth) {
             mvmt.right = false;
         }
         if(mvmt.left === true){
@@ -26,29 +28,28 @@ class Rocket{
         } else if(mvmt.right === true){
             this.rocket.x += 5;
         }
-        //     var mvmt = event.gamma;
-        //     window.addEventListener('deviceorientation', function(event) {
-        //     if (mvmt >= 45) {
-        //         this.rocket.x += mvmt/100;
-        //     } else if (mvmt < 45){
-        //         this.rocket.x -= mvmt/100;
-        //     }
-        // });
     }
-    /*
-    walls() {
-        if (rocket.x > width){
-            rocket.x = 0 - rocket.width;
-        } else if (rocket.x < 0 - rocket.width) {
-            rocket.x = width;
-        }
-    }
-    */
+
+    //     var mvmt = event.gamma;
+    //     window.addEventListener('deviceorientation', function(event) {
+    //     if (mvmt >= 45) {
+    //         this.rocket.x += mvmt/100;
+    //     } else if (mvmt < 45){
+    //         this.rocket.x -= mvmt/100;
+    //     }
+    // });
+
+    // walls() {
+    //     if (rocket.x > width){
+    //         rocket.x = 0 - rocket.width;
+    //     } else if (rocket.x < 0 - rocket.width) {
+    //         rocket.x = width;
+    //     }
+    // }
 
     walls(){
         if (this.rocket.x < 0){
             rocket.x = 150 - math.abs(rocket.x)
-
         }
     }
 
@@ -81,7 +82,7 @@ class Rocket{
 
     update() {
         console.log("update");
-       if(this.rocket.x - 50 >= this.cargoGroup.x - 50 || this.rocket.x + 50 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
+        if(this.rocket.x - 50 >= this.cargoGroup.x - 50 || this.rocket.x + 50 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
             cargo.destroy();
             console.log("Hello");
             //add to boost
@@ -95,11 +96,21 @@ class Rocket{
     }
 
     dying() {
-        console.error("Dang we died rip bye!! :D XD");
-        this.rocket.destroy();
+        console.log("Dang we died rip bye! :D XD");
+        this.dead = true;
+        console.log(this.dead);
         // window.onbeforeunload()
         //add gameOver
     }
+
+    // getDeath() {
+    //     // console.log(this.dead);
+    //     return this.dead;
+    // }
+
+    // kill(){
+    //     this.rocket.destroy();
+    // }
 
     // asteriod: this.asteroidGroup, cargo: this.cargoGroup
     checkCollision(assets){
@@ -112,7 +123,10 @@ class Rocket{
             // this.scene.physics.overlap(assets.asteroid[i], this.rocket, function() {
             if (assets.asteroid[i].x >= this.rocket.x - 50 && assets.asteroid[i].x <= this.rocket.x + 50 && this.rocket.y + 60 >= assets.asteroid[i].y && this.rocket.y - 60 <= assets.asteroid[i].y) {
                 this.rocket.destroy();
-                console.error("Dang we died rip bye!! :D XD");
+                console.log("Dang we died rip bye!! :D XD");
+
+                this.scene.scene.remove();
+                this.scene.scene.launch('gameOver');
             }
         }
         
