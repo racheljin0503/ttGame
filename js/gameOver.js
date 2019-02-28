@@ -14,12 +14,24 @@ class gameOver extends Phaser.Scene{
         // this.create();
     }
 
-    // create(){
-    //     game.physics.arcade.checkCollision.down = false;
-    //     rocket.asteriodCrash = true;
-    //     rocket.events.asteriodCollider.add(function(){
-    //         alert('Game Over');
-    //         location.reload();
-    //     }, this);
-    // }
+    create(){
+        console.log("YEEEEEE BRUH");
+        // game.physics.arcade.checkCollision.down = false;
+        // rocket.asteriodCrash = true;
+        // rocket.events.asteriodCollider.add(function(){
+        //     alert('Game Over');
+        //     location.reload();
+        // }, this);
+        this.pauseText = this.add.text(window.innerWidth/2, window.innerHeight/3, 'Go To Menu', {
+            fontSize: '80px',
+            fill: '#ffffff'
+        });
+
+        this.pauseText.setInteractive();
+
+        this.pauseText.on('pointerdown', function () {
+            this.scene.stop('GameOver');
+            this.scene.start('Menu');
+        }, this);
+    }
 }

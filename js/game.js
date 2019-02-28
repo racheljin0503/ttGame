@@ -48,7 +48,7 @@ class Game_ extends Phaser.Scene {
         this.load.image('bullets', './imgs/laserBlasts.jpg');
         this.load.image('primus', './imgs/primus.png');
         this.load.image('hatchIcon', './imgs/hatchIcon.png');
-        this.load.image('Menu', 'TitanMenu.png');
+        // this.load.image('Menu', 'TitanMenu.png');
         // this.load.audio('theme', ['./imgs/assets/audio/Deep_Space_Destructors_-_04_-_From_The_Ashes.mp3']);
     }
 

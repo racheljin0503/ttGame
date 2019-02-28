@@ -4,6 +4,7 @@ let scene = [];
 scene.push(Menu);
 scene.push(Game_);
 scene.push(Pause);
+scene.push(gameOver);
 
 window.onload = function() {
     config = {

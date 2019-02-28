@@ -30,6 +30,23 @@ class Rocket{
         }
     }
 
+    walls(){
+        if (this.rocket.x < 0){
+            rocket.x = 150 - math.abs(rocket.x)
+        }
+    }
+
+    direction() {
+        this.rocket.body.velocity.x = 0;
+
+        if (cursors.left.isDown) {
+            this.rocket.x = -200;
+        } else if (cursors.right.isDown) {
+            this.rocket.body.velocity.x = 200;
+        }
+        console.log("direction");
+    }
+
     //     var mvmt = event.gamma;
     //     window.addEventListener('deviceorientation', function(event) {
     //     if (mvmt >= 45) {
@@ -47,38 +64,23 @@ class Rocket{
     //     }
     // }
 
-    walls(){
-        if (this.rocket.x < 0){
-            rocket.x = 150 - math.abs(rocket.x)
-        }
-    }
 
-    direction() {
-        this.rocket.body.velocity.x = 0;
-
-        if (cursors.left.isDown) {
-            this.rocket.x = -200;
-        } else if (cursors.right.isDown) {
-            this.rocket.body.velocity.x = 200;
-        }
-        console.log("direction");
-    }
-//?
-//     fire(shooting){
-//         for(let i = 0; i < this.bullets.length; i++) {
-//             this.bullets[i].fly();
-//
-//             if(this.bullets[i].bulletOut() === true){
-//                 // this.bullets[i].terminate()
-//                 this.bullets[i].bullets.destroy(true);
-//                 this.bullets.splice(i, 1);
-//             }
-//         }
-//        
-//         if (shooting){
-//             this.bullets.push(new Bullet(this.scene, this.rocket.x));
-//         }
-//     }
+    //?
+    //     fire(shooting){
+    //         for(let i = 0; i < this.bullets.length; i++) {
+    //             this.bullets[i].fly();
+    //
+    //             if(this.bullets[i].bulletOut() === true){
+    //                 // this.bullets[i].terminate()
+    //                 this.bullets[i].bullets.destroy(true);
+    //                 this.bullets.splice(i, 1);
+    //             }
+    //         }
+    //        
+    //         if (shooting){
+    //             this.bullets.push(new Bullet(this.scene, this.rocket.x));
+    //         }
+    //     }
 
     update() {
         console.log("update");
@@ -101,6 +103,8 @@ class Rocket{
         console.log(this.dead);
         // window.onbeforeunload()
         //add gameOver
+        // this.scene.scene.remove("Game_");
+        // this.scene.launch('Game_');
     }
 
     // getDeath() {
@@ -124,9 +128,9 @@ class Rocket{
             if (assets.asteroid[i].x >= this.rocket.x - 50 && assets.asteroid[i].x <= this.rocket.x + 50 && this.rocket.y + 60 >= assets.asteroid[i].y && this.rocket.y - 60 <= assets.asteroid[i].y) {
                 this.rocket.destroy();
                 console.log("Dang we died rip bye!! :D XD");
-
-                this.scene.scene.remove();
-                this.scene.scene.launch('gameOver');
+                
+                this.scene.scene.stop("Game_");
+                this.scene.scene.start("GameOver");
             }
         }
         

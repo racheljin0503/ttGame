@@ -14,6 +14,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        console.log("okk");
         // window.addEventListener('resize', resize);
         // resize();
         this.titanMenu = this.add.image(window.innerWidth/2, window.innerHeight/2, 'titanMenu');
@@ -27,7 +28,8 @@ class Menu extends Phaser.Scene {
     
         this.button.on('pointerdown', function() {
             console.log('something');
-            this.scene.launch('Game_');
+            this.scene.stop('Menu');
+            this.scene.start('Game_');
             // let key = 'Joe';
             // let stuff = new Test(key);
             // this.scene.remove('MainMenu');
