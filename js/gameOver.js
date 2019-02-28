@@ -14,6 +14,8 @@ class gameOver extends Phaser.Scene{
         // this.create();
     }
 
+
+
     create(){
         console.log("YEEEEEE BRUH");
         // game.physics.arcade.checkCollision.down = false;
@@ -22,14 +24,14 @@ class gameOver extends Phaser.Scene{
         //     alert('Game Over');
         //     location.reload();
         // }, this);
-        this.pauseText = this.add.text(window.innerWidth/2, window.innerHeight/3, 'Go To Menu', {
+        this.GameOverText = this.add.text(window.innerWidth*0.38, window.innerHeight/3, 'Menu', {
             fontSize: '80px',
             fill: '#ffffff'
         });
 
-        this.pauseText.setInteractive();
+        this.GameOverText.setInteractive();
 
-        this.pauseText.on('pointerdown', function () {
+        this.GameOverText.on('pointerdown', function () {
             this.scene.stop('GameOver');
             this.scene.start('Menu');
         }, this);

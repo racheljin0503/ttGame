@@ -32,7 +32,7 @@ class Game_ extends Phaser.Scene {
         super({ key: 'Game_', active: false });
     }
 
-    scaler() {
+d    scaler() {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setMinMax(400, 300, 800, 600);
         scaleRatio = window.devicePixelRatio / 3;

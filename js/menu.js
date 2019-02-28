@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
 
             // For location
         // this.button = this.add.rectangle((320/640)*window.innerWidth, (480/960)*window.innerHeight, window.innerWidth*0.8, window.innerHeight*0.5);
-        this.button = this.add.rectangle(window.innerWidth*0.55, window.innerHeight*0.55, window.innerWidth*0.65, window.innerHeight*0.1, "#000000");
+        this.button = this.add.rectangle(window.innerWidth*0.55, window.innerHeight*0.55, window.innerWidth*0.65, window.innerHeight*0.1);
         this.button.setInteractive();
     
         this.button.on('pointerdown', function() {

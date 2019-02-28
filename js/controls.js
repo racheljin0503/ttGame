@@ -10,6 +10,26 @@ class Controls {
 
     }
 
+
+    create() {
+        console.log("okk");
+        // window.addEventListener('resize', resize);
+        // resize();
+
+        // For location
+        // this.button = this.add.rectangle((320/640)*window.innerWidth, (480/960)*window.innerHeight, window.innerWidth*0.8, window.innerHeight*0.5);
+        this.leftbutton = this.add.rectangle(0, window.innerHeight, window.innerWidth/2, window.innerHeight);
+        this.leftbutton.setInteractive();
+
+        this.leftbutton.on('pointerdown', function() {
+            console.log('left');
+            this.leftArrow = true;
+            if (gameOver()){
+                this.button.destroy();
+            }
+        }, this);
+    }
+
     update(){
         if (this.leftArrow.isDown) {
             this.left = true;
