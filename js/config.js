@@ -6,7 +6,7 @@ scene.push(Game_);
 scene.push(Pause);
 scene.push(gameOver);
 
-window.onload = function() {
+window.onload = function () {
     config = {
         type: Phaser.CANVAS,
         width: window.innerWidth * window.devicePixelRatio,
@@ -18,12 +18,12 @@ window.onload = function() {
         audio: {
             disableWebAudio: true
         }
-    }
+    };
     game = new Phaser.Game(config);
     // window.focus();
     // resize();
     // window.addEventListener("resize", resize, false);
-}
+};
 
 //     menuConfig = {
 //         type: Phaser.AUTO,
