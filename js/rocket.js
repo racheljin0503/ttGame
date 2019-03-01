@@ -84,13 +84,13 @@ class Rocket{
 
     update() {
         console.log("update");
-        if(this.rocket.x - 50 >= this.cargoGroup.x - 50 || this.rocket.x + 50 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
+        if(this.rocket.x - 50 >= this.cargoGroup.x - 50 || this.rocket.x + 50 <= this.cargoGroup.x +50 && this.rocket.y === this.cargoGroup.y) {
             cargo.destroy();
             console.log("Hello");
             //add to boost
         }
 
-        if(this.rocket.x-50 >= this.asteroidGroup.x -50 || this.rocket.x +50 <= this.asteroidGroup + 50 && this.rocket.y == this.asteroid.y) {
+        if(this.rocket.x-50 >= this.asteroidGroup.x -50 || this.rocket.x +50 <= this.asteroidGroup + 50 && this.rocket.y === this.asteroid.y) {
             asteroid.destroy();
             this.dying();
             console.log("asteroid");
@@ -125,7 +125,7 @@ class Rocket{
             // console.log("Asteroid Y: " + assets.asteroid[i].y);
 
             // this.scene.physics.overlap(assets.asteroid[i], this.rocket, function() {
-            if (assets.asteroid[i].x >= this.rocket.x - 50 && assets.asteroid[i].x <= this.rocket.x + 50 && this.rocket.y + 60 >= assets.asteroid[i].y && this.rocket.y - 60 <= assets.asteroid[i].y) {
+            if (assets.asteroid[i].x >= this.rocket.x - 60 && assets.asteroid[i].x <= this.rocket.x + 60 && this.rocket.y + 60 >= assets.asteroid[i].y && this.rocket.y - 60 <= assets.asteroid[i].y) {
                 this.rocket.destroy();
                 console.log("Dang we died rip bye!! :D XD");
                 
