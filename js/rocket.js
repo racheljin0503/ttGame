@@ -86,11 +86,14 @@ class Rocket{
 
     update() {
         console.log("update");
+
         if(this.rocket.x -window.innerWidth*0.08 >= this.cargoGroup.x - 50 || this.rocket.x + window.innerWidth*0.04 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
+
             cargo.destroy();
             console.log("Hello");
             //add to boost
         }
+
 
         if(this.rocket.x -window.innerWidth*0.08 >= this.asteroidGroup.x -50 || this.rocket.x + window.innerWidth*0.04 <= this.asteroidGroup + 50 && this.rocket.y == this.asteroid.y) {
             asteroid.destroy();
@@ -127,6 +130,7 @@ class Rocket{
             // console.log("Asteroid Y: " + assets.asteroid[i].y);
             // this.scene.physics.overlap(assets.asteroid[i], this.rocket, function() {
             if (assets.asteroid[i].x >= this.rocket.x -window.innerWidth*0.08 && assets.asteroid[i].x <= this.rocket.x + window.innerWidth*0.08 && this.rocket.y + window.innerHeight* 0.05 >= assets.asteroid[i].y && this.rocket.y - window.innerHeight*0.1 <= assets.asteroid[i].y) {
+
                 this.rocket.destroy();
                 console.log("Dang we died rip bye!! :D XD");
                 this.scene.scene.stop("Game_");

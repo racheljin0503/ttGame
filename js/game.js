@@ -11,25 +11,28 @@ let gameOptions = {
 };
 
 let space;
-let primus;        
+let primus;
 let rocket;
 let controls;
 let collectAsset;
 let scoreText;
 let pause;
+let rightSide;
+let leftSide;
 
 let score = 0;
 let updateRate = 10;
-let survivingTime= 0;
+let currentUpdate= 0;
 
 document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady(){
+
+function onDeviceReady() {
     console.log(navigator.accelerometer);
 }
 
 class Game_ extends Phaser.Scene {
     constructor() {
-        super({ key: 'Game_', active: false });
+        super({key: 'Game_', active: false});
     }
 
     scaler() {
@@ -56,13 +59,13 @@ class Game_ extends Phaser.Scene {
         // var music= this.sound.add('theme');
         // music.play();
 
-        space = this.add.tileSprite((window.innerWidth/2), (window.innerHeight/2), window.innerWidth, window.innerHeight, 'space');
+        space = this.add.tileSprite((window.innerWidth / 2), (window.innerHeight / 2), window.innerWidth, window.innerHeight, 'space');
         // primus = this.add.tileSprite((window.innerWidth/2), window.innerHeight, window.innerWidth, window.innerHeight, 'primus');
-        primus = this.add.sprite((window.innerWidth/2), (window.innerHeight*0.7), 'primus');
+        primus = this.add.sprite((window.innerWidth / 2), (window.innerHeight * 0.7), 'primus');
 
         primus.displayWidth = window.innerWidth;
         primus.displayHeight = window.innerHeight * 0.6;
-        
+
         rocket = new Rocket(this);
         controls = new Controls(this);
         // window.addEventListener('resize', resize);
@@ -72,43 +75,46 @@ class Game_ extends Phaser.Scene {
        
         scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, `Score:0`, {
             fontSize: window.innerWidth/18+'px',
+
+        scoreText = this.add.text(window.innerWidth * 0.01, window.innerHeight * 0.01, `Score:0`, {
+            fontSize: '35px',
+
             fill: '#ffffff'
         });
         scoreText.setScrollFactor(0);
 
-        this.pauseButton = this.add.rectangle(window.innerWidth * 0.93, window.innerHeight *0.01, window.innerWidth*0.1, window.innerHeight*0.1);
+        this.pauseButton = this.add.rectangle(window.innerWidth * 0.93, window.innerHeight * 0.01, window.innerWidth * 0.1, window.innerHeight * 0.1);
         this.pauseButton.setInteractive();
-        
-        pause = this.add.text(window.innerWidth*0.91, window.innerHeight*0.02, `||`, {
-            fontSize: window.innerWidth/18 +'px',
+
+        pause = this.add.text(window.innerWidth * 0.93, window.innerHeight * 0.01, `||`, {
+            fontSize: '35px',
             fill: '#ffffff'
         });
-        pause.setScrollFactor(0);
-    
-        this.pauseButton.on('pointerup', function() {
+        scoreText.setScrollFactor(0);
+
+        this.pauseButton.on('pointerdown', function () {
             this.scene.launch('Pause');
             this.scene.pause();
         }, this);
 
         this.events.on('pause', function () {
             console.log('Scene A paused');
-        })
+        });
         this.events.on('resume', function () {
             console.log('Scene A resumed');
-        })
+        });
     }
-
     update() {
-        survivingTime +=1;
+        currentUpdate += 1;
 
-        if(survivingTime === updateRate) {
+        if (currentUpdate === updateRate) {
             scoreText.destroy();
             scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, 'Score: ' + score, {
                 fontSize: window.innerWidth/18+'px',
                 fill: '#ffffff'
             });
             score++;
-            survivingTime = 0;
+            currentUpdateTime = 0;
         }
 
         // console.log(controls.getMotion())
@@ -128,8 +134,18 @@ class Game_ extends Phaser.Scene {
         space.tilePositionY -= 5;
         primus.y += 5;
 
-        if (primus.y >= window.innerHeight*2) {
+        if (primus.y >= window.innerHeight * 2) {
             primus.destroy();
+        }
+        if (this.leftArrow.isDown) {
+            this.left = true;
+            this.right = false;
+        } else if (this.rightArrow.isDown) {
+            this.right = true;
+            this.left = false;
+        } else{
+            this.left = false;
+            this.right = false;
         }
     }
 }
