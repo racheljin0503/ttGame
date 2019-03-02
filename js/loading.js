@@ -60,6 +60,7 @@ class Loading extends Phaser.Scene {
             this.load.image('assets'+i, '../imgs/technoTitanLogo.png');
         }
     }
+    testButton;
 
     loadScreen() {
         logo = this.add.image(width/2, height/2, 'logo');

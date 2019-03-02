@@ -20,7 +20,7 @@ let pause;
 
 let score = 0;
 let updateRate = 10;
-let currentUpdate = 0;
+let survivingTime= 0;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady(){
@@ -32,7 +32,7 @@ class Game_ extends Phaser.Scene {
         super({ key: 'Game_', active: false });
     }
 
-d    scaler() {
+    scaler() {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setMinMax(400, 300, 800, 600);
         scaleRatio = window.devicePixelRatio / 3;
@@ -70,8 +70,8 @@ d    scaler() {
 
         collectAsset = new collectAssets(this);
        
-        scoreText = this.add.text(window.innerWidth*0.01, window.innerHeight*0.01, `Score:0`, {
-            fontSize: '35px',
+        scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, `Score:0`, {
+            fontSize: window.innerWidth/18+'px',
             fill: '#ffffff'
         });
         scoreText.setScrollFactor(0);
@@ -79,11 +79,11 @@ d    scaler() {
         this.pauseButton = this.add.rectangle(window.innerWidth * 0.93, window.innerHeight *0.01, window.innerWidth*0.1, window.innerHeight*0.1);
         this.pauseButton.setInteractive();
         
-        pause = this.add.text(window.innerWidth*0.93, window.innerHeight*0.01, `||`, {
-            fontSize: '35px',
+        pause = this.add.text(window.innerWidth*0.91, window.innerHeight*0.02, `||`, {
+            fontSize: window.innerWidth/18 +'px',
             fill: '#ffffff'
         });
-        scoreText.setScrollFactor(0);
+        pause.setScrollFactor(0);
     
         this.pauseButton.on('pointerup', function() {
             this.scene.launch('Pause');
@@ -96,22 +96,20 @@ d    scaler() {
         this.events.on('resume', function () {
             console.log('Scene A resumed');
         })
-
     }
 
     update() {
-        currentUpdate +=1;
+        survivingTime +=1;
 
-        if(currentUpdate === updateRate) {
+        if(survivingTime === updateRate) {
             scoreText.destroy();
-            scoreText = this.add.text(25, 20, 'Score: ' + score, {
-                fontSize: '20px',
+            scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, 'Score: ' + score, {
+                fontSize: window.innerWidth/18+'px',
                 fill: '#ffffff'
             });
             score++;
-            currentUpdate = 0;
+            survivingTime = 0;
         }
-
 
         // console.log(controls.getMotion())
         rocket.move(controls.getMotion());

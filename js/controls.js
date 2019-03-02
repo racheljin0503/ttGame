@@ -1,4 +1,5 @@
 class Controls {
+    // add;
     constructor(scene) {
         this.scene = scene;
 
@@ -13,21 +14,32 @@ class Controls {
 
     create() {
         console.log("okk");
-        // window.addEventListener('resize', resize);
-        // resize();
 
-        // For location
-        // this.button = this.add.rectangle((320/640)*window.innerWidth, (480/960)*window.innerHeight, window.innerWidth*0.8, window.innerHeight*0.5);
-        this.leftbutton = this.add.rectangle(0, window.innerHeight, window.innerWidth/2, window.innerHeight);
-        this.leftbutton.setInteractive();
+        // this.leftbutton = this.add.image(window.innerWidth/2, window.innerHeight);
+        //     this.leftbutton.displayWidth = window.innerWidth;
+        //     this.leftbutton.displayHeight = window.innerHeight;
 
-        this.leftbutton.on('pointerdown', function() {
-            console.log('left');
-            this.leftArrow = true;
-            if (gameOver()){
-                this.button.destroy();
-            }
-        }, this);
+    //     this.leftbutton = this.add.rectangle(0, 0, window.innerWidth/2, window.innerHeight);
+    //     this.leftbutton.setInteractive();
+
+    //     this.leftbutton.on('pointerdown', function() {
+    //         console.log('left');
+    //         this.leftArrow = true;
+    //     }, this);
+    //     this.rightbutton = this.add.rectangle(window.innerWidth/2, window.innerHeight, window.innerWidth, 0);
+    //     this.rightbutton.setInteractive();
+
+    //     this.rightbutton.on('pointerdown', function() {
+    //         console.log('right');
+    //         this.rightArrow = true;
+    //         this.button.destroy();
+    //     }, this);
+    }
+    tester(){
+
+        if (this.leftbutton === true){
+            console.log("HD");
+        }
     }
 
     update(){
@@ -41,7 +53,7 @@ class Controls {
             this.left = false;
             this.right = false;
         }
-    
+
     }
 
     getMotion() {
