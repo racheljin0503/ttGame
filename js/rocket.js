@@ -1,7 +1,9 @@
 class Rocket{
     constructor(scene) {
         this.scene = scene;
-        this.rocket = this.scene.physics.add.sprite(window.innerWidth * 0.5, window.innerHeight * 0.87, 'rocket');   
+        this.rocket = this.scene.physics.add.sprite(window.innerWidth * 0.5, window.innerHeight * 0.93, 'rocket');
+        this.rocket.displayWidth = window.innerWidth*0.2;
+        this.rocket.displayHeight = window.innerHeight*0.2;   
         
         this.dead = false;
         //spritesheeet
@@ -17,10 +19,10 @@ class Rocket{
     }
 
     move(mvmt){
-        if(this.rocket.x -50 <= 0) {
+        if(this.rocket.x - window.innerWidth*0.06 <= 0) {
             mvmt.left = false;
         }
-        else if(this.rocket.x + 50 >= window.innerWidth) {
+        else if(this.rocket.x + window.innerWidth*0.06 >= window.innerWidth) {
             mvmt.right = false;
         }
         if(mvmt.left === true){
@@ -84,13 +86,16 @@ class Rocket{
 
     update() {
         console.log("update");
-        if(this.rocket.x - 50 >= this.cargoGroup.x - 50 || this.rocket.x + 50 <= this.cargoGroup.x +50 && this.rocket.y === this.cargoGroup.y) {
+
+        if(this.rocket.x -window.innerWidth*0.08 >= this.cargoGroup.x - 50 || this.rocket.x + window.innerWidth*0.04 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
+
             cargo.destroy();
             console.log("Hello");
             //add to boost
         }
 
-        if(this.rocket.x-50 >= this.asteroidGroup.x -50 || this.rocket.x +50 <= this.asteroidGroup + 50 && this.rocket.y === this.asteroid.y) {
+
+        if(this.rocket.x -window.innerWidth*0.08 >= this.asteroidGroup.x -50 || this.rocket.x + window.innerWidth*0.04 <= this.asteroidGroup + 50 && this.rocket.y == this.asteroid.y) {
             asteroid.destroy();
             this.dying();
             console.log("asteroid");
@@ -123,19 +128,18 @@ class Rocket{
         for (let i = 0; i < assets.asteroid.length; i++) {
             // console.log("Asteroid X: " + assets.asteroid[i].x);
             // console.log("Asteroid Y: " + assets.asteroid[i].y);
-
             // this.scene.physics.overlap(assets.asteroid[i], this.rocket, function() {
-            if (assets.asteroid[i].x >= this.rocket.x - 60 && assets.asteroid[i].x <= this.rocket.x + 60 && this.rocket.y + 60 >= assets.asteroid[i].y && this.rocket.y - 60 <= assets.asteroid[i].y) {
+            if (assets.asteroid[i].x >= this.rocket.x -window.innerWidth*0.08 && assets.asteroid[i].x <= this.rocket.x + window.innerWidth*0.08 && this.rocket.y + window.innerHeight* 0.05 >= assets.asteroid[i].y && this.rocket.y - window.innerHeight*0.1 <= assets.asteroid[i].y) {
+
                 this.rocket.destroy();
                 console.log("Dang we died rip bye!! :D XD");
-                
                 this.scene.scene.stop("Game_");
                 this.scene.scene.start("GameOver");
             }
         }
         
         for (let i = 0; i < assets.cargo.length; i++) {
-            if (assets.cargo[i].x -10 > this.rocket.x - 50 && assets.cargo[i].x + 10 < this.rocket.x + 50 && this.rocket.y + 60 > assets.cargo[i].y +10 && this.rocket.y - 60 < assets.cargo[i].y -10) {
+            if (assets.cargo[i].x -10 > this.rocket.x -window.innerWidth*0.08 && assets.cargo[i].x + 10 < this.rocket.x + window.innerWidth*0.08 && this.rocket.y + window.innerHeight* 0.05 > assets.cargo[i].y +10 && this.rocket.y - window.innerHeight* 0.1 < assets.cargo[i].y -10) {
                 assets.cargo[i].destroy();
             }
         }

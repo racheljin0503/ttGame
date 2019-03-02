@@ -16,19 +16,23 @@ class collectAssets {
     }
 
     randAssets() {
-        if (Phaser.Math.Between(1, 150) <= gameOptions.cargoPercent && this.timeOverall === 0) {
-            let cargo = this.scene.physics.add.sprite(Phaser.Math.Between(1, game.config.width), -50, 'cargo');
+        if (Phaser.Math.Between(1, 50) <= gameOptions.cargoPercent && this.timeOverall === 0) {
+            let cargo = this.scene.physics.add.sprite(Phaser.Math.Between(window.innerWidth*0.05, window.innerWidth-window.innerWidth*0.05), -50, 'cargo');
             cargo.setVelocityY(- ((space.tilePositionY / 150) - 300));
             this.cargoGroup.push(cargo);
+            cargo.displayWidth = window.innerWidth*0.15;
+            cargo.displayHeight = window.innerHeight*0.1;
 
             this.timeOverall = 20;
         }
 
-        if (Phaser.Math.Between(1, 75) <= gameOptions.asteroidPercent && this.timeOverall === 0) {
-            let asteroid = this.scene.physics.add.sprite(Phaser.Math.Between(1, game.config.width), -50, 'asteroid');
+        if (Phaser.Math.Between(1, 25) <= gameOptions.asteroidPercent && this.timeOverall === 0) {
+            let asteroid = this.scene.physics.add.sprite(Phaser.Math.Between(window.innerWidth*0.1, window.innerWidth-window.innerWidth*0.1), -50, 'asteroid');
             asteroid.setVelocityY(- ((space.tilePositionY / 150) - 300));
             this.asteroidGroup.push(asteroid);
-
+            asteroid.displayWidth = window.innerWidth*0.25;
+            asteroid.displayHeight = window.innerHeight*0.18;
+            
             this.timeOverall = 20;
         }
     }

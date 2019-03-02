@@ -22,7 +22,7 @@ let leftSide;
 
 let score = 0;
 let updateRate = 10;
-let currentUpdate = 0;
+let currentUpdate= 0;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -72,9 +72,13 @@ class Game_ extends Phaser.Scene {
         // resize();
 
         collectAsset = new collectAssets(this);
+       
+        scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, `Score:0`, {
+            fontSize: window.innerWidth/18+'px',
 
         scoreText = this.add.text(window.innerWidth * 0.01, window.innerHeight * 0.01, `Score:0`, {
             fontSize: '35px',
+
             fill: '#ffffff'
         });
         scoreText.setScrollFactor(0);
@@ -88,7 +92,7 @@ class Game_ extends Phaser.Scene {
         });
         scoreText.setScrollFactor(0);
 
-        this.pauseButton.on('pointerup', function () {
+        this.pauseButton.on('pointerdown', function () {
             this.scene.launch('Pause');
             this.scene.pause();
         }, this);
@@ -99,44 +103,19 @@ class Game_ extends Phaser.Scene {
         this.events.on('resume', function () {
             console.log('Scene A resumed');
         });
-
-        this.rightSideButton = this.add.rectangle(window.innerWidth, 0, window.innerWidth, window.innerHeight*2);
-        this.rightSideButton.setInteractive();
-
-        // rightSide = this.add.text(window.innerWidth * 0.53, window.innerHeight * 0.01, `BUTTON`, {
-        //     fontSize: '35px',
-        //     fill: '#ffffff'
-        // });
-
-        this.rightSideButton.on('pointerup', function () {
-            this.right = true;
-            console.log("RIGHT SIDE BUTTON CLICKED");
-        }, this);
-
-        this.leftSideButton = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight*2);
-        this.leftSideButton.setInteractive();
-
-
-        this.leftSideButton.on('pointerup', function () {
-            this.left = true;
-            console.log("LEFT SIDE BUTTON CLICKED");
-        }, this);
-
     }
-
     update() {
         currentUpdate += 1;
 
         if (currentUpdate === updateRate) {
             scoreText.destroy();
-            scoreText = this.add.text(25, 20, 'Score: ' + score, {
-                fontSize: '20px',
+            scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, 'Score: ' + score, {
+                fontSize: window.innerWidth/18+'px',
                 fill: '#ffffff'
             });
             score++;
-            currentUpdate = 0;
+            currentUpdateTime = 0;
         }
-
 
         // console.log(controls.getMotion())
         rocket.move(controls.getMotion());
