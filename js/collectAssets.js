@@ -31,7 +31,7 @@ class collectAssets {
             asteroid.setVelocityY(- ((space.tilePositionY / 150) - 300));
             this.asteroidGroup.push(asteroid);
             asteroid.displayWidth = window.innerWidth*0.25;
-            asteroid.displayHeight = window.innerHeight*0.18;
+            asteroid.displayHeight = window.innerHeight*0.15;
             
             this.timeOverall = 20;
         }

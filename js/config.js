@@ -1,6 +1,7 @@
 let config;
 
 let scene = [];
+// scene.push(Loading);
 scene.push(Menu);
 scene.push(Game_);
 scene.push(Pause);
