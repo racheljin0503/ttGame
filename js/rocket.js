@@ -141,6 +141,7 @@ class Rocket{
         for (let i = 0; i < assets.cargo.length; i++) {
             if (assets.cargo[i].x -10 > this.rocket.x -window.innerWidth*0.08 && assets.cargo[i].x + 10 < this.rocket.x + window.innerWidth*0.08 && this.rocket.y + window.innerHeight* 0.05 > assets.cargo[i].y +10 && this.rocket.y - window.innerHeight* 0.1 < assets.cargo[i].y -10) {
                 assets.cargo[i].destroy();
+                score += 50;
             }
         }
     }

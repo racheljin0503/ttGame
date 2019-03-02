@@ -75,6 +75,7 @@ class Game_ extends Phaser.Scene {
        
         scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, `Score:0`, {
             fontSize: window.innerWidth/18+'px',
+        });
 
         scoreText = this.add.text(window.innerWidth * 0.01, window.innerHeight * 0.01, `Score:0`, {
             fontSize: '35px',
@@ -86,7 +87,7 @@ class Game_ extends Phaser.Scene {
         this.pauseButton = this.add.rectangle(window.innerWidth * 0.93, window.innerHeight * 0.01, window.innerWidth * 0.1, window.innerHeight * 0.1);
         this.pauseButton.setInteractive();
 
-        pause = this.add.text(window.innerWidth * 0.93, window.innerHeight * 0.01, `||`, {
+        pause = this.add.text(window.innerWidth * 0.9, window.innerHeight * 0.01, `||`, {
             fontSize: '35px',
             fill: '#ffffff'
         });
@@ -103,19 +104,20 @@ class Game_ extends Phaser.Scene {
         this.events.on('resume', function () {
             console.log('Scene A resumed');
         });
+        score = 0;
     }
     update() {
         currentUpdate += 1;
 
-        if (currentUpdate === updateRate) {
+        // if (currentUpdate === updateRate) {
             scoreText.destroy();
             scoreText = this.add.text(window.innerWidth*0.05, window.innerHeight*0.02, 'Score: ' + score, {
                 fontSize: window.innerWidth/18+'px',
                 fill: '#ffffff'
             });
             score++;
-            currentUpdateTime = 0;
-        }
+        //     currentUpdate = 0;
+        // }
 
         // console.log(controls.getMotion())
         rocket.move(controls.getMotion());
@@ -137,16 +139,16 @@ class Game_ extends Phaser.Scene {
         if (primus.y >= window.innerHeight * 2) {
             primus.destroy();
         }
-        if (this.leftArrow.isDown) {
-            this.left = true;
-            this.right = false;
-        } else if (this.rightArrow.isDown) {
-            this.right = true;
-            this.left = false;
-        } else{
-            this.left = false;
-            this.right = false;
-        }
+        // if (this.leftArrow.isDown) {
+        //     this.left = true;
+        //     this.right = false;
+        // } else if (this.rightArrow.isDown) {
+        //     this.right = true;
+        //     this.left = false;
+        // } else{
+        //     this.left = false;
+        //     this.right = false;
+        // }
     }
 }
 

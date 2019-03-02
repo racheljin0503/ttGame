@@ -10,9 +10,14 @@ class Pause extends Phaser.Scene {
             fill: '#ffffff'
         });
 
-        this.pauseText.setInteractive();
+        this.resumeButton = this.add.text(window.innerWidth/2, window.innerHeight/3, 'Pause', {
+            fontSize: '40px',
+            fill: '#ffffff'
+        });
 
-        this.pauseText.on('pointerdown', function () {
+        this.resumeButton.setInteractive();
+
+        this.resumeButton.on('pointerdown', function () {
             this.scene.resume('Game_');
             this.scene.stop();
         }, this);
