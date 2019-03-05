@@ -11,10 +11,8 @@ class Bullet {
 
     //what does the return true or false do
     bulletsOut(){
-        if(this.bullets.y > 960){
-            return true;
-        }
-        return false;
+        return this.bullets.y > 960;
+
     }
 
     firing(bullets, asteroids) {

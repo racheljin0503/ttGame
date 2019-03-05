@@ -19,7 +19,7 @@ class Loading extends Phaser.Scene {
         if(this.loadingTime > 0){
             this.loadingTime--;
         }
-        if(this.loadingTime == 0) {
+        if(this.loadingTime === 0) {
             this.scene.stop('Loading');
             this.scene.start('Menu');
         }

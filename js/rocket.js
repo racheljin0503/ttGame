@@ -34,7 +34,7 @@ class Rocket{
 
     walls(){
         if (this.rocket.x < 0){
-            rocket.x = 150 - math.abs(rocket.x)
+            this.rocket.x = 150 - Math.abs(rocket.x)
         }
     }
 
@@ -87,7 +87,7 @@ class Rocket{
     update() {
         console.log("update");
 
-        if(this.rocket.x -window.innerWidth*0.08 >= this.cargoGroup.x - 50 || this.rocket.x + window.innerWidth*0.04 <= this.cargoGroup.x +50 && this.rocket.y == this.cargoGroup.y) {
+        if(this.rocket.x - window.innerWidth*0.08 >= this.cargoGroup.x - 50 || this.rocket.x + window.innerWidth*0.04 <= this.cargoGroup.x +50 && this.rocket.y === this.cargoGroup.y) {
 
             cargo.destroy();
             console.log("Hello");
@@ -95,7 +95,7 @@ class Rocket{
         }
 
 
-        if(this.rocket.x -window.innerWidth*0.08 >= this.asteroidGroup.x -50 || this.rocket.x + window.innerWidth*0.04 <= this.asteroidGroup + 50 && this.rocket.y == this.asteroid.y) {
+        if(this.rocket.x - window.innerWidth*0.08 >= this.asteroidGroup.x -50 || this.rocket.x + window.innerWidth*0.04 <= this.asteroidGroup + 50 && this.rocket.y === this.asteroid.y) {
             asteroid.destroy();
             this.dying();
             console.log("asteroid");

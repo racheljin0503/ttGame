@@ -34,13 +34,6 @@ class Game_ extends Phaser.Scene {
     constructor() {
         super({key: 'Game_', active: false});
     }
-
-    scaler() {
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.scale.setMinMax(400, 300, 800, 600);
-        scaleRatio = window.devicePixelRatio / 3;
-    }
-
     preload() {
         this.load.image('space', './imgs/spacegif.jpg');
         this.load.image('rocket', './imgs/rocket.png');

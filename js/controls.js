@@ -12,7 +12,7 @@ class Controls {
     }
 
 
-    create() {
+    static create() {
         console.log("okk");
 
         // window.addEventListener('resize', resize);
@@ -40,35 +40,6 @@ class Controls {
     //         this.rightArrow = true;
     //         this.button.destroy();
     //     }, this);
-    }
-    tester(){
-
-        if (this.leftbutton === true){
-            console.log("HD");
-        }
-
-        this.leftbutton = this.add.rectangle(0, 0, window.innerWidth/2, window.innerHeight);
-        this.leftbutton.setInteractive();
-
-        this.leftbutton.on('pointerdown', function() {
-            console.log('left');
-            this.leftArrow = true;
-        }, this);
-        this.rightbutton = this.add.rectangle(window.innerWidth/2, window.innerHeight, window.innerWidth, 0);
-        this.rightbutton.setInteractive();
-
-        this.rightbutton.on('pointerdown', function() {
-            console.log('right');
-            this.rightArrow = true;
-            this.button.destroy();
-        }, this);
-
-    }
-    tester(){
-
-        if (this.leftbutton === true){
-            console.log("HD");
-        }
     }
 
     update(){

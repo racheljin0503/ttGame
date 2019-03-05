@@ -11,8 +11,8 @@ class collectAssets {
         this.updateTime();
         this.randAssets();
         
-        this.destroyAssets(this.cargoGroup);
-        this.destroyAssets(this.asteroidGroup);
+        collectAssets.destroyAssets(this.cargoGroup);
+        collectAssets.destroyAssets(this.asteroidGroup);
     }
 
     randAssets() {
@@ -37,7 +37,7 @@ class collectAssets {
         }
     }
 
-    destroyAssets(asset){
+    static destroyAssets(asset){
         for(let i = 0; i < asset.length; i++){
             if(asset[i].y -50 > game.config.height){
                 asset[i].destroy(true);
